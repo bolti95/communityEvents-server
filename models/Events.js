@@ -6,6 +6,8 @@ const event = Schema({
     contactEmail: {type: String},
     eventTitle: {type: String},
     eventDescription: {type: String},
+    lat: {type: Number},
+    lng: {type: Number},
     eventDate: {type: Date},
     eventTime: {type: String}
 })
