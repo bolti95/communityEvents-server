@@ -1,6 +1,8 @@
 require('dotenv').config();
+const MongoClient = require('mongodb')
 const Event = require("../models/Events");
 const getLatLng = require("../api/GetLatLng");
+
 
 exports.event_create = async (req, res) => {
     const { 
@@ -51,4 +53,20 @@ exports.event_create = async (req, res) => {
     });
     event.save();
     res.status(200).send({event, lat, lng})
+}
+
+
+exports.event_display = async (req, res) => {
+    // console.log(Event.getCollection("auth"))
+    // Can only get 1 event. Needs to get more events.
+    // try to find 1 event using date?
+    const events = await Event.find()
+    .then((data) => {
+        console.log('Data to show:', data);
+        const eventObjs = data
+        res.status(200).send(JSON.stringify(eventObjs))
+    })
+    .catch((error) => {
+        console.log(error)
+    })    
 }
