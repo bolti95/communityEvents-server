@@ -46,6 +46,9 @@ exports.event_create = async (req, res) => {
         contactEmail: contactEmail,
         eventTitle: eventTitle,
         eventDescription: eventDescription,
+        venue: venue,
+        city: city,
+        postcode: postcode,
         lat: lat,
         lng: lng,
         eventDate: eventDate,
@@ -57,9 +60,6 @@ exports.event_create = async (req, res) => {
 
 
 exports.event_display = async (req, res) => {
-    // console.log(Event.getCollection("auth"))
-    // Can only get 1 event. Needs to get more events.
-    // try to find 1 event using date?
     const events = await Event.find()
     .then((data) => {
         console.log('Data to show:', data);
