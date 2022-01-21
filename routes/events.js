@@ -15,6 +15,7 @@ router.get("/create", (req, res) => {
 
 router.get("/display", event_controller.event_display)
 
+router.delete("/expired", event_controller.event_delete)
 
 
 module.exports = router

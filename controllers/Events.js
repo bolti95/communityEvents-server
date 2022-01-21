@@ -70,3 +70,31 @@ exports.event_display = async (req, res) => {
         console.log(error)
     })    
 }
+
+exports.event_delete = async (req, res) => {
+    const dateToday = new Date();
+    const yesterday = new Date(dateToday)
+    yesterday.setDate(yesterday.getDate() - 1)
+
+    yesterdayFormat = yesterday.toISOString().substring(0, 10)
+    Event.find({}, function(err, data){
+        const eventTime = data.map((event, index) => {
+            const dateToCheck = new Date (data[index].eventDate)
+            const dateToCheckFormat = dateToCheck.toISOString().substring(0, 10)
+            if (dateToCheckFormat === yesterdayFormat) {
+                Event.deleteOne({"eventTitle": data[index].eventTitle})
+                .then((response) => {
+                    const message = " expired document deleted!"
+                    res.status(200).send(message)               
+                })
+                .catch(err => res.status(401).send(err) )
+                //  function(err, resp){
+                //     if (err) res.status(401).send(err) 
+                //     const message = " expired document deleted!"
+                //     res.status(200).send(message)
+                // })              
+            }
+
+        })
+    })    
+}
